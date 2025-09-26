@@ -1,0 +1,7 @@
+# Luccabot Static Site Requirements
+# No external dependencies required for basic static serving
+# Python 3.7+ built-in modules are sufficient
+
+# Optional: For enhanced functionality
+# gunicorn>=20.1.0  # Production WSGI server
+# whitenoise>=6.0.0  # Static file serving
