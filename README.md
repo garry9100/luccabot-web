@@ -1,43 +1,40 @@
-# Luccabot Landing Page
+# Luccabot Website
 
 **Money Made Simple | WhatsApp Financial Assistant**
 
-A production-ready landing page for Luccabot, your AI-powered WhatsApp financial assistant that helps users track spending, plan savings, and grow wealth.
+A modern, responsive website for Luccabot, your AI-powered WhatsApp financial assistant that helps users track spending, plan savings, and grow wealth.
 
 ## 🚀 Features
 
 - **Modern Design**: Clean, professional interface with smooth animations
 - **Mobile-First**: Fully responsive design optimized for all devices
-- **PWA Ready**: Progressive Web App with install prompts and offline support
-- **SEO Optimized**: Comprehensive meta tags, structured data, and sitemap
-- **Performance**: Optimized loading, caching, and offline support
+- **Partnership Page**: Dedicated page for potential partners and investors
+- **SEO Optimized**: Comprehensive meta tags and structured data
+- **Performance**: Optimized loading and caching
 - **Analytics Ready**: Google Analytics integration with custom event tracking
-- **Security**: Security headers and best practices implemented
 - **WhatsApp Integration**: Direct links to start using Luccabot
-- **Render Deploy**: Ready for deployment on Render.com
+- **Static Site**: Pure client-side website, no server required
 
 ## 📁 Project Structure
 
 ```
-luccabot-site/
-├── index.html          # Main landing page
+luccabot-web/
+├── index.html              # Main homepage
+├── partnership.html         # Partnership page
 ├── css/
-│   └── style.css      # Complete styling with animations
+│   ├── style.css           # Main styles
+│   └── partnership.css     # Partnership page styles
 ├── js/
-│   └── script.js       # Enhanced JavaScript with analytics
+│   └── script.js           # JavaScript functionality
 ├── images/
-│   ├── hero-1.jpg      # Hero section image
-│   └── feature-1.jpg   # Features section image
-├── sw.js              # Service worker for PWA and offline support
-├── manifest.json      # PWA manifest file
-├── server.py          # Python server for Render deployment
-├── requirements.txt   # Python dependencies
-├── render.yaml        # Render deployment configuration
-├── robots.txt         # SEO robots file
-├── sitemap.xml        # SEO sitemap
-├── .htaccess          # Apache server configuration
-├── package.json       # Project configuration
-└── README.md          # This file
+│   ├── hero-1.jpg          # Hero section image
+│   ├── feature-1.jpg       # Features section image
+│   └── partnership-hero.svg # Partnership hero image
+├── manifest.json           # PWA manifest file
+├── robots.txt              # SEO robots file
+├── sitemap.xml             # SEO sitemap
+├── package.json            # Project configuration
+└── README.md               # This file
 ```
 
 ## 🛠️ Setup & Deployment
@@ -46,14 +43,14 @@ luccabot-site/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/luccabot/landing-page.git
-   cd luccabot-landing
+   git clone https://github.com/your-username/luccabot-web.git
+   cd luccabot-web
    ```
 
 2. **Start local server**
    ```bash
    # Using Python
-   python -m http.server 8000
+   python3 -m http.server 8000
    
    # Using Node.js
    npx serve .
@@ -69,34 +66,34 @@ luccabot-site/
 
 ### Production Deployment
 
-#### Option 1: Render.com (Recommended)
-1. **Create Render Account**: Sign up at [render.com](https://render.com)
+#### Option 1: Netlify (Recommended)
+1. **Create Netlify Account**: Sign up at [netlify.com](https://netlify.com)
+2. **Deploy**: Drag & drop the folder or connect GitHub
+3. **Custom Domain**: Add your domain in settings
+
+#### Option 2: Vercel
+1. **Create Vercel Account**: Sign up at [vercel.com](https://vercel.com)
 2. **Connect Repository**: Link your GitHub repository
-3. **Create Static Site**: Choose "Static Site" service
-4. **Configure Settings**:
-   - Build Command: `echo 'Static site - no build required'`
-   - Publish Directory: `/` (root)
-   - Start Command: `python server.py`
-5. **Deploy**: Click "Create Static Site"
-6. **Custom Domain**: Add your domain in settings
+3. **Deploy**: Automatic deployment on every push
 
-#### Option 2: Other Static Hosting
-- **Netlify**: Drag & drop the folder or connect GitHub
-- **Vercel**: Connect repository for automatic deployments
-- **GitHub Pages**: Push to `gh-pages` branch
+#### Option 3: GitHub Pages
+1. **Enable GitHub Pages**: Go to repository settings
+2. **Select Source**: Choose main branch
+3. **Access**: Your site will be available at `https://username.github.io/repository-name`
+
+#### Option 4: Other Static Hosting
 - **AWS S3**: Upload files to S3 bucket with static hosting
-
-#### Option 3: Traditional Web Hosting
-1. Upload all files to your web server
-2. Ensure `.htaccess` is supported (Apache)
-3. Configure SSL certificate
-4. Update Google Analytics ID in `index.html`
-
-#### Option 4: CDN Deployment
-- Upload to CloudFlare, AWS CloudFront, or similar
-- Configure caching rules for optimal performance
+- **CloudFlare Pages**: Connect GitHub for automatic deployments
+- **Traditional Web Hosting**: Upload all files to your web server
 
 ## ⚙️ Configuration
+
+### Backend API Integration
+Update the API URL in `js/script.js` to point to your backend:
+
+```javascript
+const API_BASE_URL = 'https://your-backend-api.com'; // Change this to your backend URL
+```
 
 ### Google Analytics
 Replace `GA_MEASUREMENT_ID` in `index.html` with your actual Google Analytics tracking ID:
@@ -118,6 +115,7 @@ href="https://wa.me/YOUR_PHONE_NUMBER?text=Start"
 ### Domain Configuration
 Update all references to `luccabot.com` in:
 - `index.html` (meta tags, canonical URL)
+- `partnership.html` (meta tags, canonical URL)
 - `sitemap.xml`
 - `robots.txt`
 
@@ -138,25 +136,13 @@ Update all references to `luccabot.com` in:
 - **HTTPS Enforcement**: Secure connections (when configured)
 - **File Access Control**: Prevent access to sensitive files
 
-## 📱 PWA Features
-
-- **App Installation**: Users can install Luccabot as a native app
-- **Offline Support**: Works without internet connection
-- **Service Worker**: Background caching and updates
-- **App Manifest**: Native app-like experience
-- **Install Prompts**: Smart installation suggestions
-- **Update Notifications**: Automatic update alerts
-- **Push Notifications**: Ready for future messaging features
-
 ## 📈 Performance Optimizations
 
-- **Service Worker**: Offline support and caching
 - **Image Optimization**: Compressed and optimized images
 - **CSS/JS Minification**: Reduced file sizes
 - **Browser Caching**: Optimized cache headers
 - **Compression**: Gzip compression enabled
 - **Lazy Loading**: Images load as needed
-- **PWA Caching**: Intelligent resource caching
 
 ## 📱 Browser Support
 
@@ -174,9 +160,7 @@ The page tracks the following events:
 - `animation_triggered`: When scroll animations activate
 - `page_load_time`: Performance metrics
 - `exception`: JavaScript errors
-- `pwa_install`: When users install the PWA
-- `pwa_usage`: When users run the app as PWA
-- `pwa_update`: When PWA updates are available
+- `partnership_form_submit`: When users submit the partnership form
 
 ## 🔧 Customization
 

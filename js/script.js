@@ -300,10 +300,13 @@
 
   // Partnership Form Modal Functions
   function openPartnershipForm() {
+    console.log('openPartnershipForm called');
     const modal = document.getElementById('partnershipModal');
+    console.log('modal:', modal);
     if (modal) {
       modal.classList.add('show');
       document.body.style.overflow = 'hidden';
+      console.log('Modal opened');
       
       // Track modal open event
       if (typeof gtag !== 'undefined') {
@@ -362,9 +365,9 @@
         data.userAgent = navigator.userAgent;
         data.referrer = document.referrer;
         
-        // Send to backend - Uses environment configuration
-        const API_BASE_URL = window.ENV?.API_BASE_URL || 'https://your-backend-api.com';
-        const API_ENDPOINT = window.ENV?.API_ENDPOINT || '/api/partnership';
+        // Send to backend - Update this URL to your actual backend API
+        const API_BASE_URL = 'https://your-backend-api.com'; // Change this to your backend URL
+        const API_ENDPOINT = '/api/partnership';
         const response = await fetch(`${API_BASE_URL}${API_ENDPOINT}`, {
           method: 'POST',
           headers: {
@@ -493,12 +496,16 @@
 
   // Mobile menu toggle
   function toggleMobileMenu() {
+    console.log('toggleMobileMenu called');
     const nav = document.getElementById('mainNav');
     const toggle = document.querySelector('.mobile-menu-toggle');
+    
+    console.log('nav:', nav, 'toggle:', toggle);
     
     if (nav && toggle) {
       nav.classList.toggle('active');
       toggle.classList.toggle('active');
+      console.log('Menu toggled, nav classes:', nav.className);
       
       // Prevent body scroll when menu is open
       if (nav.classList.contains('active')) {
