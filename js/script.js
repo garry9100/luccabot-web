@@ -211,19 +211,18 @@
     });
   }
 
-  // PWA Install prompt
+  // PWA Install prompt (disabled - no install button)
   window.addEventListener('beforeinstallprompt', (e) => {
-    console.log('PWA: Install prompt triggered');
+    console.log('PWA: Install prompt triggered (button disabled)');
     e.preventDefault();
     deferredPrompt = e;
-    showInstallButton();
+    // Install button functionality removed
   });
 
   // Track PWA installation
   window.addEventListener('appinstalled', () => {
     console.log('PWA: App installed successfully');
     isInstalled = true;
-    hideInstallButton();
     
     // Track installation event
     if (typeof gtag !== 'undefined') {
@@ -233,77 +232,6 @@
       });
     }
   });
-
-  // Show install button
-  function showInstallButton() {
-    const installButton = createInstallButton();
-    document.body.appendChild(installButton);
-  }
-
-  // Hide install button
-  function hideInstallButton() {
-    const installButton = document.getElementById('pwa-install-button');
-    if (installButton) {
-      installButton.remove();
-    }
-  }
-
-  // Create install button
-  function createInstallButton() {
-    const button = document.createElement('div');
-    button.id = 'pwa-install-button';
-    button.innerHTML = `
-      <div style="
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: var(--gradient-brand);
-        color: white;
-        padding: 12px 20px;
-        border-radius: 25px;
-        box-shadow: var(--shadow-lg);
-        cursor: pointer;
-        z-index: 1000;
-        font-size: 14px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: all 0.3s ease;
-      ">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-        </svg>
-        Install Luccabot
-        <button onclick="this.parentElement.remove()" style="
-          background: none;
-          border: none;
-          color: white;
-          font-size: 18px;
-          cursor: pointer;
-          margin-left: 8px;
-        ">×</button>
-      </div>
-    `;
-    
-    button.addEventListener('click', installPWA);
-    return button;
-  }
-
-  // Install PWA
-  function installPWA() {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('PWA: User accepted install prompt');
-        } else {
-          console.log('PWA: User dismissed install prompt');
-        }
-        deferredPrompt = null;
-      });
-    }
-  }
 
   // Show update notification
   function showUpdateNotification() {
@@ -370,9 +298,264 @@
     }
   }
 
+  // Partnership Form Modal Functions
+  function openPartnershipForm() {
+    const modal = document.getElementById('partnershipModal');
+    if (modal) {
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      
+      // Track modal open event
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'partnership_modal_open', {
+          event_category: 'engagement',
+          event_label: 'partnership_form_opened'
+        });
+      }
+    }
+  }
+
+  function closePartnershipForm() {
+    const modal = document.getElementById('partnershipModal');
+    if (modal) {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+      
+      // Reset form
+      const form = document.getElementById('partnershipForm');
+      if (form) {
+        form.reset();
+        // Remove loading state from submit button
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          submitBtn.classList.remove('loading');
+          submitBtn.disabled = false;
+        }
+      }
+    }
+  }
+
+  // Partnership form submission
+  function initPartnershipForm() {
+    const form = document.getElementById('partnershipForm');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const formData = new FormData(form);
+      
+      // Show loading state
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+      
+      try {
+        // Convert FormData to JSON
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+          data[key] = value;
+        }
+        
+        // Add timestamp and user agent
+        data.timestamp = new Date().toISOString();
+        data.userAgent = navigator.userAgent;
+        data.referrer = document.referrer;
+        
+        // Send to backend - Uses environment configuration
+        const API_BASE_URL = window.ENV?.API_BASE_URL || 'https://your-backend-api.com';
+        const API_ENDPOINT = window.ENV?.API_ENDPOINT || '/api/partnership';
+        const response = await fetch(`${API_BASE_URL}${API_ENDPOINT}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+          // Success
+          showNotification('Thank you! Your partnership interest has been submitted successfully. We\'ll get back to you soon.', 'success');
+          closePartnershipForm();
+          
+          // Track successful submission
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'partnership_form_submit', {
+              event_category: 'conversion',
+              event_label: 'partnership_interest_submitted',
+              value: 1
+            });
+          }
+        } else {
+          throw new Error('Server error');
+        }
+      } catch (error) {
+        console.error('Partnership form error:', error);
+        showNotification('Sorry, there was an error submitting your form. Please try again or contact us directly.', 'error');
+        
+        // Track error
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'partnership_form_error', {
+            event_category: 'error',
+            event_label: 'form_submission_failed'
+          });
+        }
+      } finally {
+        // Remove loading state
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
+  // Show notification
+  function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    const bgColor = type === 'success' ? 'var(--brand)' : type === 'error' ? '#ef4444' : 'var(--ink-light)';
+    
+    notification.innerHTML = `
+      <div style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${bgColor};
+        color: white;
+        padding: 16px 20px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        z-index: 1001;
+        font-size: 14px;
+        font-weight: 500;
+        max-width: 400px;
+        animation: slideInRight 0.3s ease;
+      ">
+        ${message}
+        <button onclick="this.parentElement.parentElement.remove()" style="
+          background: none;
+          border: none;
+          color: white;
+          cursor: pointer;
+          font-size: 18px;
+          margin-left: 12px;
+          float: right;
+        ">×</button>
+      </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      if (notification.parentElement) {
+        notification.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => {
+          if (notification.parentElement) {
+            notification.remove();
+          }
+        }, 300);
+      }
+    }, 5000);
+  }
+
+  // Close modal when clicking outside
+  function initModalClickOutside() {
+    const modal = document.getElementById('partnershipModal');
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closePartnershipForm();
+        }
+      });
+    }
+  }
+
+  // Close modal with Escape key
+  function initModalKeyboard() {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('partnershipModal');
+        if (modal && modal.classList.contains('show')) {
+          closePartnershipForm();
+        }
+      }
+    });
+  }
+
   // Initialize PWA features
   domReady(() => {
     safeExecute(checkPWAStatus, 'PWA Status Check');
+    safeExecute(initPartnershipForm, 'Partnership Form');
+    safeExecute(initModalClickOutside, 'Modal Click Outside');
+    safeExecute(initModalKeyboard, 'Modal Keyboard');
+    safeExecute(initMobileMenuClose, 'Mobile Menu Close');
+    safeExecute(initMobileMenuClickOutside, 'Mobile Menu Click Outside');
   });
+
+  // Mobile menu toggle
+  function toggleMobileMenu() {
+    const nav = document.getElementById('mainNav');
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (nav && toggle) {
+      nav.classList.toggle('active');
+      toggle.classList.toggle('active');
+      
+      // Prevent body scroll when menu is open
+      if (nav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+      
+      // Track menu toggle
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'mobile_menu_toggle', {
+          event_category: 'engagement',
+          event_label: nav.classList.contains('active') ? 'menu_opened' : 'menu_closed'
+        });
+      }
+    }
+  }
+
+  // Close mobile menu when clicking on nav links
+  function initMobileMenuClose() {
+    const nav = document.getElementById('mainNav');
+    const navLinks = nav?.querySelectorAll('.nav-link');
+    
+    if (navLinks) {
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            document.querySelector('.mobile-menu-toggle')?.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        });
+      });
+    }
+  }
+
+  // Close mobile menu when clicking outside
+  function initMobileMenuClickOutside() {
+    const nav = document.getElementById('mainNav');
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (nav && toggle) {
+      document.addEventListener('click', (e) => {
+        if (nav.classList.contains('active') && 
+            !nav.contains(e.target) && 
+            !toggle.contains(e.target)) {
+          nav.classList.remove('active');
+          toggle.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+  }
+
+  // Make functions globally available
+  window.openPartnershipForm = openPartnershipForm;
+  window.closePartnershipForm = closePartnershipForm;
+  window.toggleMobileMenu = toggleMobileMenu;
 
 })();

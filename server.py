@@ -8,6 +8,7 @@ import http.server
 import socketserver
 import os
 import sys
+import json
 from urllib.parse import urlparse
 
 class LuccabotHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -36,7 +37,20 @@ class LuccabotHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         
         super().end_headers()
     
+    def do_POST(self):
+        """Handle POST requests - API removed, using external backend"""
+        self.send_error(404, "API endpoints moved to external backend")
+    
+    def do_OPTIONS(self):
+        """Handle CORS preflight requests"""
+        self.send_error(404, "API endpoints moved to external backend")
+    
     def do_GET(self):
+        # Handle environment configuration endpoint
+        if self.path == '/api/env':
+            self.send_env_config()
+            return
+        
         # Handle root path
         if self.path == '/':
             self.path = '/index.html'
@@ -46,6 +60,27 @@ class LuccabotHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.path = '/index.html'
         
         return super().do_GET()
+    
+    def send_env_config(self):
+        """Send environment configuration as JSON"""
+        env_config = {
+            'API_BASE_URL': os.environ.get('API_BASE_URL', 'https://your-backend-api.com'),
+            'API_ENDPOINT': os.environ.get('API_ENDPOINT', '/api/partnership'),
+            'NODE_ENV': os.environ.get('NODE_ENV', 'production'),
+            'SITE_URL': os.environ.get('SITE_URL', 'https://luccabot.com'),
+            'SITE_NAME': os.environ.get('SITE_NAME', 'Luccabot'),
+            'CONTACT_EMAIL': os.environ.get('CONTACT_EMAIL', 'partnerships@luccabot.com'),
+            'WHATSAPP_NUMBER': os.environ.get('WHATSAPP_NUMBER', '+918360103306'),
+            'ENABLE_PWA': os.environ.get('ENABLE_PWA', 'true').lower() == 'true',
+            'ENABLE_ANALYTICS': os.environ.get('ENABLE_ANALYTICS', 'true').lower() == 'true',
+            'ENABLE_PARTNERSHIP_FORM': os.environ.get('ENABLE_PARTNERSHIP_FORM', 'true').lower() == 'true'
+        }
+        
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        self.wfile.write(json.dumps(env_config).encode('utf-8'))
     
     def log_message(self, format, *args):
         """Custom log format"""

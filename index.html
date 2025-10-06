@@ -118,9 +118,21 @@
             <span class="brand-text">luccabot</span>
           </div>
         </a>
-        <nav class="nav">
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav" id="mainNav">
+          <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close mobile menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
           <a href="#how" class="nav-link">How it works</a>
           <a href="#why" class="nav-link">Why Luccabot?</a>
+          <a href="#partnership" class="nav-link">Partnership</a>
           <a href="https://wa.me/918360103306?text=Start" class="btn btn-outline" target="_blank" rel="noopener">Start</a>
         </nav>
       </div>
@@ -242,6 +254,71 @@
         </div>
       </section>
 
+      <section id="partnership" class="partnership">
+        <div class="container">
+          <div class="partnership-header">
+            <h2 class="section-title">🤝 Become a Partner</h2>
+            <p class="partnership-subtitle">We're not looking for big VCs or institutional investors right now.<br>We're looking for real believers — individuals who want to own a small fraction of Luccabot's journey.</p>
+          </div>
+
+          <div class="partnership-options">
+            <div class="option-card">
+              <div class="option-icon">💠</div>
+              <h3>Micro-Investor</h3>
+              <p>Partner as a micro-investor with fractional ownership</p>
+            </div>
+            <div class="option-card">
+              <div class="option-icon">💠</div>
+              <h3>Growth Collaborator</h3>
+              <p>Collaborate for growth, marketing, or tech development</p>
+            </div>
+            <div class="option-card">
+              <div class="option-icon">💠</div>
+              <h3>Startup Partner</h3>
+              <p>Be part of a startup that's scaling sustainably</p>
+            </div>
+          </div>
+
+          <div class="partnership-vision">
+            <blockquote class="vision-quote">
+              "Luccabot isn't just an app — it's a movement to make finance simple, fun, and powerful for everyone."
+            </blockquote>
+            <p class="vision-cta">If this vision excites you — <strong>📩 Let's Talk.</strong></p>
+            <div class="contact-options">
+              <a href="mailto:partnerships@luccabot.com" class="btn btn-outline">Write to us</a>
+              <button class="btn btn-solid" onclick="openPartnershipForm()">Become Partner</button>
+            </div>
+          </div>
+
+          <div class="current-status">
+            <h3>🏆 Current Status</h3>
+            <div class="status-grid">
+              <div class="status-item">
+                <span class="status-icon">✅</span>
+                <span>Bootstrapped and profitable in pilot phase</span>
+              </div>
+              <div class="status-item">
+                <span class="status-icon">🧭</span>
+                <span>50,000+ users reached organically</span>
+              </div>
+              <div class="status-item">
+                <span class="status-icon">💬</span>
+                <span>Active creator & referral community growing daily</span>
+              </div>
+              <div class="status-item">
+                <span class="status-icon">🔮</span>
+                <span>Preparing for national-scale launch 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="revolution-cta">
+            <h3>⚡ Join the Revolution</h3>
+            <p>The future of finance is conversational.<br>Join us now — and own a fraction of tomorrow.</p>
+          </div>
+        </div>
+      </section>
+
       <section id="start" class="cta">
         <div class="container cta-box">
           <h2 class="cta-title">Ready to make money simple?</h2>
@@ -257,6 +334,84 @@
       </div>
     </footer>
 
+    <!-- Partnership Form Modal -->
+    <div id="partnershipModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>🤝 Become a Partner</h2>
+          <button class="modal-close" onclick="closePartnershipForm()">&times;</button>
+        </div>
+        <form id="partnershipForm" class="partnership-form">
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+          
+          <div class="form-group">
+            <label for="partnershipType">Partnership Type *</label>
+            <select id="partnershipType" name="partnershipType" required>
+              <option value="">Select partnership type</option>
+              <option value="micro-investor">Micro-Investor (Fractional Ownership)</option>
+              <option value="growth-collaborator">Growth Collaborator (Marketing/Tech)</option>
+              <option value="startup-partner">Startup Partner (Sustainable Scaling)</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="investmentAmount">Investment Range (if applicable)</label>
+            <select id="investmentAmount" name="investmentAmount">
+              <option value="">Select range</option>
+              <option value="under-10k">Under $10,000</option>
+              <option value="10k-50k">$10,000 - $50,000</option>
+              <option value="50k-100k">$50,000 - $100,000</option>
+              <option value="100k-plus">$100,000+</option>
+              <option value="not-applicable">Not Applicable</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="background">Background & Experience</label>
+            <textarea id="background" name="background" rows="4" placeholder="Tell us about your background, experience, and what you can bring to Luccabot..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="motivation">Why do you want to partner with Luccabot?</label>
+            <textarea id="motivation" name="motivation" rows="3" placeholder="What excites you about our vision and mission?"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="additionalInfo">Additional Information</label>
+            <textarea id="additionalInfo" name="additionalInfo" rows="3" placeholder="Any other information you'd like to share?"></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn btn-outline" onclick="closePartnershipForm()">Cancel</button>
+            <button type="submit" class="btn btn-solid">Submit Partnership Interest</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Environment Configuration -->
+    <meta name="env-config" content='{"API_BASE_URL":"https://your-backend-api.com","API_ENDPOINT":"/api/partnership","NODE_ENV":"production","SITE_URL":"https://luccabot.com","CONTACT_EMAIL":"partnerships@luccabot.com","WHATSAPP_NUMBER":"+918360103306"}' />
+    
+    <!-- 
+      IMPORTANT: Update the environment configuration above or in /js/env.js
+      Current API setting: https://your-backend-api.com
+      Change to your actual backend URL before deployment
+    -->
+    <script src="/js/env.js"></script>
     <script src="/js/script.js" defer></script>
   </body>
 </html>
