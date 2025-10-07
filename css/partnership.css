@@ -309,50 +309,88 @@ body {
 }
 
 .btn-hero {
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 25px;
+  padding: 18px 36px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 50px;
   text-decoration: none;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-  min-width: 160px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 3px solid transparent;
+  min-width: 220px;
   text-align: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
 .btn-hero.btn-solid {
   background: #ffffff;
   color: #1f8a4c;
-  border-color: #ffffff;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  border-color: #1f8a4c;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2), 0 0 0 1px rgba(31,138,76,0.1);
+}
+
+.btn-hero.btn-solid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.5s;
 }
 
 .btn-hero.btn-solid:hover {
   background: #f8f9fa;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  color: #1f8a4c;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25), 0 0 0 1px rgba(31,138,76,0.2);
+  border-color: #1f8a4c;
+}
+
+.btn-hero.btn-solid:hover::before {
+  left: 100%;
 }
 
 .btn-hero.btn-outline {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.15);
   color: white;
-  border-color: rgba(255,255,255,0.5);
-  backdrop-filter: blur(10px);
+  border-color: rgba(255,255,255,0.6);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.btn-hero.btn-outline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
 }
 
 .btn-hero.btn-outline:hover {
-  background: rgba(255,255,255,0.2);
-  border-color: rgba(255,255,255,0.8);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.9);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.btn-hero.btn-outline:hover::before {
+  left: 100%;
 }
 
 .partnership-badges {
   position: absolute;
-  bottom: 60px;
+  bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -423,9 +461,9 @@ body {
   }
   
   .btn-hero {
-    padding: 12px 24px;
-    font-size: 1rem;
-    min-width: 160px;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    min-width: 200px;
   }
   
   /* Logo decorations tablet adjustments */
@@ -498,15 +536,12 @@ body {
   }
   
   .btn-hero {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-    min-width: 140px;
+    padding: 14px 28px;
+    font-size: 1rem;
+    min-width: 180px;
   }
   
   .partnership-badges {
-    flex-direction: column;
-    gap: 15px;
-    bottom: 30px;
     max-width: 90%;
   }
   
@@ -577,9 +612,9 @@ body {
   }
   
   .btn-hero {
-    padding: 8px 16px;
-    font-size: 0.8rem;
-    min-width: 120px;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    min-width: 160px;
   }
   
   .partnership-badges {
@@ -663,13 +698,12 @@ body {
   }
   
   .btn-hero {
-    padding: 8px 16px;
-    font-size: 0.8rem;
-    min-width: 120px;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    min-width: 140px;
   }
   
   .partnership-badges {
-    bottom: 10px;
     max-width: 90%;
   }
   
@@ -703,7 +737,7 @@ body {
   .money-symbol {
     font-size: 24px;
   }
-}
+
 
 /* Why Partner Section */
 .why-partner {
