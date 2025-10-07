@@ -177,34 +177,34 @@ body {
 }
 
 .logo-1 {
-  width: 320px;
-  height: 320px;
-  top: 100px;
-  left: 70px;
+  width: clamp(120px, 20vw, 320px);
+  height: clamp(120px, 20vw, 320px);
+  top: clamp(50px, 8vh, 100px);
+  left: clamp(20px, 5vw, 70px);
   animation-delay: 0s;
 }
 
 .logo-2 {
-  width: 220px;
-  height: 220px;
-  top: 170px;
-  right: 50px;
+  width: clamp(100px, 15vw, 220px);
+  height: clamp(100px, 15vw, 220px);
+  top: clamp(80px, 12vh, 170px);
+  right: clamp(20px, 4vw, 50px);
   animation-delay: 2s;
 }
 
 .logo-3 {
-  width: 120px;
-  height: 120px;
-  bottom: 20px;
-  left: 20px;
+  width: clamp(80px, 10vw, 120px);
+  height: clamp(80px, 10vw, 120px);
+  bottom: clamp(10px, 2vh, 20px);
+  left: clamp(10px, 2vw, 20px);
   animation-delay: 4s;
 }
 
 .logo-4 {
-  width: 120px;
-  height: 120px;
-  bottom: 150px;
-  right: 250px;
+  width: clamp(80px, 10vw, 120px);
+  height: clamp(80px, 10vw, 120px);
+  bottom: clamp(80px, 12vh, 150px);
+  right: clamp(120px, 20vw, 250px);
   animation-delay: 6s;
 }
 
@@ -487,31 +487,31 @@ body {
   
   /* Logo decorations tablet adjustments */
   .logo-1 {
-    width: 120px;
-    height: 120px;
-    top: 20px;
-    left: 20px;
+    width: clamp(100px, 15vw, 150px);
+    height: clamp(100px, 15vw, 150px);
+    top: clamp(20px, 4vh, 40px);
+    left: clamp(15px, 3vw, 30px);
   }
   
   .logo-2 {
-    width: 100px;
-    height: 100px;
-    top: 120px;
-    right: 20px;
+    width: clamp(80px, 12vw, 120px);
+    height: clamp(80px, 12vw, 120px);
+    top: clamp(100px, 15vh, 150px);
+    right: clamp(15px, 3vw, 30px);
   }
   
   .logo-3 {
-    width: 110px;
-    height: 110px;
-    bottom: 120px;
-    left: 20px;
+    width: clamp(90px, 12vw, 130px);
+    height: clamp(90px, 12vw, 130px);
+    bottom: clamp(100px, 15vh, 150px);
+    left: clamp(15px, 3vw, 30px);
   }
   
   .logo-4 {
-    width: 90px;
-    height: 90px;
-    bottom: 20px;
-    right: 20px;
+    width: clamp(70px, 10vw, 110px);
+    height: clamp(70px, 10vw, 110px);
+    bottom: clamp(20px, 4vh, 40px);
+    right: clamp(15px, 3vw, 30px);
   }
 }
 
@@ -566,31 +566,31 @@ body {
   
   /* Logo decorations mobile adjustments */
   .logo-1 {
-    width: 80px;
-    height: 80px;
-    top: 10px;
-    left: 10px;
+    width: clamp(60px, 12vw, 100px);
+    height: clamp(60px, 12vw, 100px);
+    top: clamp(10px, 2vh, 20px);
+    left: clamp(8px, 2vw, 15px);
   }
   
   .logo-2 {
-    width: 60px;
-    height: 60px;
-    top: 80px;
-    right: 10px;
+    width: clamp(50px, 10vw, 80px);
+    height: clamp(50px, 10vw, 80px);
+    top: clamp(60px, 10vh, 100px);
+    right: clamp(8px, 2vw, 15px);
   }
   
   .logo-3 {
-    width: 70px;
-    height: 70px;
-    bottom: 80px;
-    left: 10px;
+    width: clamp(55px, 11vw, 85px);
+    height: clamp(55px, 11vw, 85px);
+    bottom: clamp(60px, 10vh, 100px);
+    left: clamp(8px, 2vw, 15px);
   }
   
   .logo-4 {
-    width: 50px;
-    height: 50px;
-    bottom: 10px;
-    right: 10px;
+    width: clamp(40px, 8vw, 70px);
+    height: clamp(40px, 8vw, 70px);
+    bottom: clamp(10px, 2vh, 20px);
+    right: clamp(8px, 2vw, 15px);
   }
 }
 
@@ -647,23 +647,33 @@ body {
     padding: 0 10px;
   }
   
-  /* Hide some logos on very small screens */
-  .logo-2, .logo-4 {
-    display: none;
+  /* Adjust logos for very small screens */
+  .logo-1 {
+    width: clamp(50px, 15vw, 80px);
+    height: clamp(50px, 15vw, 80px);
+    top: clamp(15px, 3vh, 25px);
+    left: clamp(10px, 3vw, 20px);
   }
   
-  .logo-1 {
-    width: 150px;
-    height: 150px;
-    top: 38px;
-    left: 24px;
+  .logo-2 {
+    width: clamp(35px, 10vw, 60px);
+    height: clamp(35px, 10vw, 60px);
+    top: clamp(50px, 8vh, 80px);
+    right: clamp(10px, 3vw, 20px);
   }
   
   .logo-3 {
-    width: 50px;
-    height: 50px;
-    bottom: 5px;
-    left: 5px;
+    width: clamp(40px, 12vw, 70px);
+    height: clamp(40px, 12vw, 70px);
+    bottom: clamp(50px, 8vh, 80px);
+    left: clamp(10px, 3vw, 20px);
+  }
+  
+  .logo-4 {
+    width: clamp(30px, 8vw, 50px);
+    height: clamp(30px, 8vw, 50px);
+    bottom: clamp(15px, 3vh, 25px);
+    right: clamp(10px, 3vw, 20px);
   }
   
   .badge {
@@ -725,6 +735,31 @@ body {
   .partnership-badges {
     bottom: 10px;
     max-width: 90%;
+  }
+  
+  /* Logo adjustments for landscape */
+  .logo-1 {
+    width: clamp(40px, 8vw, 60px);
+    height: clamp(40px, 8vw, 60px);
+    top: clamp(10px, 2vh, 15px);
+  }
+  
+  .logo-2 {
+    width: clamp(30px, 6vw, 50px);
+    height: clamp(30px, 6vw, 50px);
+    top: clamp(30px, 6vh, 50px);
+  }
+  
+  .logo-3 {
+    width: clamp(35px, 7vw, 55px);
+    height: clamp(35px, 7vw, 55px);
+    bottom: clamp(30px, 6vh, 50px);
+  }
+  
+  .logo-4 {
+    width: clamp(25px, 5vw, 40px);
+    height: clamp(25px, 5vw, 40px);
+    bottom: clamp(10px, 2vh, 15px);
   }
   
   .hero-description {
